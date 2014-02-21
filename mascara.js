@@ -4,7 +4,8 @@ jQuery.fn.mascarar = function() {
     var nums = Array();
 
     $(this).on('keypress', function(e) {
-        if (e.which != 8 && isNaN(String.fromCharCode(e.which)) || e.which == 32) {
+		var code = e.keyCode || e.which
+        if (code != 8 && isNaN(String.fromCharCode(code)) || code == 32) {
             e.preventDefault(); //se nao for numero para o codido
         }
         if ($(this).val().length < 15) {
@@ -14,18 +15,18 @@ jQuery.fn.mascarar = function() {
 
             if ($(this).val() != "") {
 
-                if (qtd == 1) {
+                if (qtd == 1 && code != 8) {
                     $(this).val('(' + atual);
                 }
-                if (qtd == 3) {
+                if (qtd == 3 && code != 8) {
                     $(this).val(atual + ') ');
                 }
-                if (qtd == 9) {
+                if (qtd == 9 && code != 8) {
                     $(this).val(atual + '-');
                 }
 
                 if (qtd == 14) {
-                    if (e.which != 8 && isNaN(String.fromCharCode(e.which)) || e.which == 32) {
+                    if (code != 8 && isNaN(String.fromCharCode(code)) || code == 32) {
                         return false;
                     }
                     for (i = 0; i < qtd; i++) {
@@ -39,13 +40,17 @@ jQuery.fn.mascarar = function() {
             }
 
         } else {
+			 if (code != 8){
             return false;
+			 }
         }
 
     });
 
     $(this).on('keyup', function(e) {
-        if (e.keyCode == 8) {
+		var code = e.keyCode || e.which
+		
+        if (code == 8) {
             if ($(this).val().length == 14) {
                 for (i = 0; i < $(this).val().length; i++) {
                     nums[i] = $(this).val().substr(i, 1)

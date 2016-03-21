@@ -3,9 +3,7 @@ $.fn.mascararTelefone = function() {
 
     var nums = Array();
     var input = $(this);
-    
-    console.info(input);
-    
+ 
     input.on('keypress', function(e) {
 	var code = e.keyCode || e.which;
         if (code !== 8 && isNaN(String.fromCharCode(code)) || code === 32) {
